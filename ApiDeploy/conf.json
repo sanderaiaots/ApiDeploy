@@ -1,0 +1,23 @@
+{
+  "IISFolder": "C:\\Projects\\IIS-Router",
+  "DeployInputFolder": "C:\\Projects\\colt-github\\Colt\\Web.Api\\bin\\Release\\net7.0",
+  "DeployInputFolder2": "C:\\Projects\\deploy.zip",
+  "IgnoreFiles": "appsettings.json;Colt.Web.Api.dll.config;web.config;IIS",
+  "IsAlterIisWebConfig": true,
+  "BootUrls": [
+    "/api/OrderStatus?system=deploy&brand=TELIASE&On=BootUpColt",
+    "/api/Av?dealer=x1&channel=EL_EPOOD&system=deploy&brand=TELIA&prd=KAARTCOMBO3G&emptyNotPrdNotFound=True"
+  ],
+  "Nodes": [
+    {
+      "ServiceName": "!!ColtWebApi1",
+      "RunFolder": "C:\\Projects\\WebApiDeploy\\Node1",
+      "WebConfig": "C:\\Projects\\WebApiDeploy\\Node1\\IIS\\web.config"
+    },
+    {
+      "ServiceName": "!!ColtWebApi2",
+      "RunFolder": "C:\\Projects\\WebApiDeploy\\Node2",
+      "WebConfig": "C:\\Projects\\WebApiDeploy\\Node2\\IIS\\web.config"
+    }
+  ]
+}
