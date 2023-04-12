@@ -65,7 +65,9 @@ if (inactive != null) {
 		sc.Stop();
 		sc.WaitForStatus(ServiceControllerStatus.Stopped);
 	}
-
+	if (!string.IsNullOrEmpty(deploy.BackupFolder) && !string.IsNullOrEmpty(deploy.BackupName)) {
+		CopyTools.Backup(deploy.BackupFolder, inactive.RunFolder, deploy.BackupName);
+	}
 	Console.WriteLine("Will delete files in: " + inactive.RunFolder);
 	tools.CleanFolder(inactive.RunFolder);
 	Console.WriteLine("Copy new code to=" + inactive.RunFolder + " from=" + deploy.DeployInputFolder);

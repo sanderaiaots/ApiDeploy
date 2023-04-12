@@ -4,6 +4,8 @@ public class DeployConf {
 	public string IISFolder;
 	public string DeployInputFolder;
 	public string IgnoreFiles;
+	public string? BackupFolder;
+	public string? BackupName;
 	public string[] BootUrls;
 	public NodeConf[] Nodes;
 	/// <summary>

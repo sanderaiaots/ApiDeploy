@@ -1,4 +1,5 @@
-﻿using System.IO.Compression;
+﻿using System.Diagnostics;
+using System.IO.Compression;
 
 namespace ApiDeploy;
 
@@ -108,5 +109,39 @@ public class CopyTools {
 				diSourceSubDir.Delete();
 			}
 		}
+	}
+
+	public static void Backup(string backupFolder, string folderToBackup, string appName) {
+		Stopwatch sw = Stopwatch.StartNew();
+		DirectoryInfo dir = new DirectoryInfo(GetBackupFolder(backupFolder));
+		if (!dir.Exists) {
+			dir.Create();
+			Console.WriteLine("Created backupFolder " + dir.FullName);
+		}
+		
+		string backupFileName = CreateBackupFile(backupFolder, appName, null);
+		int i = 0;
+		while (File.Exists(backupFileName)) {
+			backupFileName = CreateBackupFile(backupFolder, appName, ++i);
+			if (i > 100) {
+				Console.WriteLine("Too many backup files. Abort. Last try: " + backupFileName);
+				return;
+			}
+		}
+		ZipFile.CreateFromDirectory(folderToBackup, backupFileName);
+		Console.WriteLine($"BackupDone {folderToBackup}->{backupFileName} elapsed={sw.ElapsedMilliseconds}ms");
+	}
+
+	private static string GetBackupFolder(string backupFolder) {
+		return $"{backupFolder}{Path.DirectorySeparatorChar}{DateTime.Now:yyyyMMdd}";
+	}
+	
+	private static string CreateBackupFile(string backupFolder, string appName, int? idx) {
+		string sidx = "";
+		if (idx != null) {
+			sidx = "_" + idx;
+		}
+		string backupFileName = $"{GetBackupFolder(backupFolder)}{Path.DirectorySeparatorChar}{appName}_backup_{DateTime.Now:yyyyMMdd}{sidx}.zip";
+		return backupFileName;
 	}
 }
