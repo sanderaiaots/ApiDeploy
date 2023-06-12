@@ -6,10 +6,7 @@
   "IsAlterIisWebConfig": true,
   "BackupFolder": "C:\\!!Backup",
   "BackupName": "ColtWebApi7",
-  "BootUrls": [
-    "/api/OrderStatus?system=deploy&brand=TELIASE&On=BootUpColt",
-    "/api/Av?dealer=x1&channel=EL_EPOOD&system=deploy&brand=TELIA&prd=KAARTCOMBO3G&emptyNotPrdNotFound=True"
-  ],
+  "TestCollectionLocation": "/Users/rainer.kikkas/testcollection.json",
   "Nodes": [
     {
       "ServiceName": "!!ColtWebApi1",

@@ -9,7 +9,11 @@ using Newtonsoft.Json.Linq;
 
 
 string configLoction = args.Length > 0 ? args[0] : "conf.json";
+
 DeployConf deploy = JsonConvert.DeserializeObject<DeployConf>(File.ReadAllText(configLoction));
+if (!string.IsNullOrEmpty(deploy.TestCollectionLocation)) {
+	deploy.TestCases = TestCollectionParser.ParseCollection(File.ReadAllText(deploy.TestCollectionLocation));
+}
 NodeConf[] conf = deploy.Nodes;
 CopyTools tools = new CopyTools(deploy.IgnoreFiles);
 
@@ -77,8 +81,7 @@ if (inactive != null) {
 
 	ServiceHelper.ChangeStartMode(sc, ServiceStartMode.Automatic);
 	sc.Start();
-
-	if (!deploy.BootUrls.All(url => Util.IsHttpCallOok(inactive.HostedUrl + url))) {
+	if (!deploy.TestCases.All(testCase => Util.IsTestCaseOk(testCase, inactive.HostedUrl))) { 
 		Console.WriteLine("Boot URL.s returned error. Stop dpeloy process");
 		return;
 	}
