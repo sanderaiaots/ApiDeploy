@@ -14,6 +14,7 @@ DeployConf deploy = JsonConvert.DeserializeObject<DeployConf>(File.ReadAllText(c
 if (!string.IsNullOrEmpty(deploy.TestCollectionLocation)) {
 	deploy.TestCases = TestCollectionParser.ParseCollection(File.ReadAllText(deploy.TestCollectionLocation));
 }
+
 NodeConf[] conf = deploy.Nodes;
 CopyTools tools = new CopyTools(deploy.IgnoreFiles);
 
