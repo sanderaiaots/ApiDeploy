@@ -6,7 +6,6 @@ public class DeployConf {
 	public string IgnoreFiles;
 	public string? BackupFolder;
 	public string? BackupName;
-	public string[] BootUrls;
 	public NodeConf[] Nodes;
 	/// <summary>
 	/// If true alter web.config on IIS instead of copy over new web config from node configuration.
@@ -17,4 +16,9 @@ public class DeployConf {
 	/// what is active node url where we redirect traffic
 	/// </summary>
 	public string? ActiveNodeUrl;
+	public string TestCollectionLocation;
+	/// <summary>
+	/// tests to execute for sanity checks
+	/// </summary>
+	public TestCase[] TestCases;
 }
